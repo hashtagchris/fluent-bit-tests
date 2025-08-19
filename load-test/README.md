@@ -37,7 +37,7 @@ The container will emit parsed records to stdout and then exit. Use the `--abort
 
 ## Debugging
 
-Connect to the fluent-bit container:
+Comment out `Exit_On_Eof`. Run `docker-compose` and connect to the fluent-bit container:
 
 ```
 docker exec -it load-test-fluent-bit-1 /bin/bash
@@ -58,7 +58,6 @@ curl -s http://localhost:2020/api/v2/metrics
 Use the helper script (fast, uses `seq`):
 ```bash
 cd load-test
-chmod +x generate-log.sh   # first time only
 ./generate-log.sh 500000   # generates 500k lines into sample.log
 ```
 Or ad‑hoc without the script:
