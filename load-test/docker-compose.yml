@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   fluent-bit:
-    image: fluent/fluent-bit:latest
+    image: fluent/fluent-bit:3.2.2-debug
     volumes:
       - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf:ro
       - ./sample.log:/var/log/sample.log:ro

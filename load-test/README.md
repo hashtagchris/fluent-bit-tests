@@ -30,6 +30,26 @@ docker compose up --remove-orphans --abort-on-container-exit --exit-code-from fl
 ```
 The container will emit parsed records to stdout and then exit. Use the `--abort-on-container-exit` and `--exit-code-from` flags to make Compose stop once Fluent Bit finishes.
 
+## Debugging
+
+Connect to the fluent-bit container:
+
+```
+% docker exec -it load-test-fluent-bit-1 /bin/bash
+```
+
+Then inspect the mounted log file and fluent-bit's own metrics:
+
+```
+ls -lh /var/log/sample.log
+
+curl -s http://localhost:2020 | jq
+
+curl -s http://localhost:2020/api/v2/metrics
+```
+
+See https://docs.fluentbit.io/manual/administration/monitoring
+
 ## Generate a larger log file
 
 Use the helper script (fast, uses `seq`):
