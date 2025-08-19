@@ -2,6 +2,11 @@
 
 This directory contains a minimal load test harness for Fluent Bit's `tail` input plugin using the official `fluent/fluent-bit` Docker image and the `exit_on_eof` option. When Fluent Bit reaches end-of-file (EOF) on the specified log file, it will flush remaining buffers and exit—useful for batch / one‑shot benchmarking.
 
+## Reference
+
+* https://docs.fluentbit.io/manual/3.2/pipeline/inputs/tail
+* https://docs.fluentbit.io/manual/3.2/administration/monitoring
+
 ## Contents
 
 - `docker-compose.yml` – Runs Fluent Bit with the provided config.
@@ -35,7 +40,7 @@ The container will emit parsed records to stdout and then exit. Use the `--abort
 Connect to the fluent-bit container:
 
 ```
-% docker exec -it load-test-fluent-bit-1 /bin/bash
+docker exec -it load-test-fluent-bit-1 /bin/bash
 ```
 
 Then inspect the mounted log file and fluent-bit's own metrics:
@@ -47,8 +52,6 @@ curl -s http://localhost:2020 | jq
 
 curl -s http://localhost:2020/api/v2/metrics
 ```
-
-See https://docs.fluentbit.io/manual/administration/monitoring
 
 ## Generate a larger log file
 
