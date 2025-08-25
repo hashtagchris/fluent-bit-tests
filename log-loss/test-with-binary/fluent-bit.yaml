@@ -1,0 +1,20 @@
+service:
+  log_level: info
+  parsers_file: parsers.conf
+
+pipeline:
+  inputs:
+    # https://docs.fluentbit.io/manual/data-pipeline/inputs/tail
+    - name: tail
+      path: test.log
+      read_from_head: true
+      exit_on_eof: true
+      parser: logfmt
+
+  outputs:
+    # https://docs.fluentbit.io/manual/data-pipeline/outputs/file
+    - name: file
+      path: fb-output
+      # reduce the output file size, and a potential IO bottleneck
+      format: template
+      template: "{level}"
