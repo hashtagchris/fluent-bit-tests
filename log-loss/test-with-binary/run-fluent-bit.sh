@@ -27,18 +27,14 @@ mkdir -p fb-output
 
 rm -rf logs
 mkdir -p logs
-# spawn a background thread to sleep 5 seconds and then copy test.log to the logs directory
+# spawn a background job to sleep 5 seconds and then copy test.log to the logs directory
 # it's possible Fluent Bit treats pre-existing files differently, even when read_from_head is true
 (
   sleep 5
   cp test.log logs/
-  echo "Added log file for fluent-bit to detect"
+  echo "Background job: Added log file to the logs directory for fluent bit to process"
 ) &
 
 # Run Fluent Bit
-# Ensure output isn't buffered
-time fluent-bit -c fluent-bit.yaml
-
-# Or choose one of these based on fluent-bit's verbosity
-# time fluent-bit -c fluent-bit.yaml 2>&1 | tee fluent-bit.out
-# time fluent-bit -c fluent-bit.yaml 2>&1 | grep -v '\[static files\] processed 31' | tee fluent-bit.out
+# Warning: Anything written to stdout may be buffered till the end
+time fluent-bit -c fluent-bit.yaml 2>&1 | tee fluent-bit.out

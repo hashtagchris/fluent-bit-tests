@@ -5,7 +5,7 @@ local callCount = 0
 
 function log(msg)
     local timestamp = os.date("%Y/%m/%d %H:%M:%S")
-    print("[" .. timestamp .. "] [ script] " .. msg)
+    io.stderr:write("[" .. timestamp .. "] [ script] " .. msg .. "\n")
 end
 
 function add_checksum(tag, timestamp, record)
