@@ -25,6 +25,15 @@ fi
 rm -rf fb-output
 mkdir -p fb-output
 
+rm -rf logs
+mkdir -p logs
+# spawn a background thread to sleep 5 seconds and then copy test.log to the logs directory
+(
+  sleep 5
+  cp test.log logs/
+  echo "Added log file for fluent-bit to detect"
+) &
+
 # Run Fluent Bit
 # Ensure output isn't buffered
 time fluent-bit -c fluent-bit.yaml
