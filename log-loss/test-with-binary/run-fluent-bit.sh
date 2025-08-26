@@ -32,7 +32,10 @@ mkdir -p logs
 (
   sleep 5
   cp test.log logs/
-  echo "Background job: Added log file to the logs directory for fluent bit to process"
+  echo -e "\n***Background job***: Added log file to the logs directory for fluent bit to process\n"
+
+  # spawn a second background job to delete the test log file 10 seconds later
+  ( sleep 10; rm logs/test.log; echo -e "\n***Background job***: Removed log file from the logs directory to test for abandoned log segments\n" ) &
 ) &
 
 # Run Fluent Bit
