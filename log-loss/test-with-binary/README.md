@@ -29,6 +29,19 @@ brew install <username>/fluent-bit-old/fluent-bit
 fluent-bit --version
 ```
 
+### Ubuntu
+
+Start by following https://docs.fluentbit.io/manual/installation/linux/ubuntu
+
+When you get to the "Install Fluent Bit" section:
+
+```
+sudo apt-get install fluent-bit=3.2.2
+sudo ln -s /opt/fluent-bit/bin/fluent-bit /usr/local/bin/fluent-bit
+
+fluent-bit --version
+```
+
 ### Debug log comparison
 
 Fluent Bit v3.2.2 gracefully exiting after reading the full log file:
