@@ -7,7 +7,9 @@ pipeline:
     # https://docs.fluentbit.io/manual/data-pipeline/inputs/tail
     - name: tail
       path: logs/*.log
-      refresh_interval: 2 # seconds
+      refresh_interval: 2  # seconds. This is set low so the test can detect new log files quickly
+      rotate_wait: 5       # seconds. 5 is the default.
+      read_from_head: true # Start reading from the beginning of the file. Needed if the log file is present prior to starting Fluent Bit.
       exit_on_eof: true
       parser: logfmt
       processors:
