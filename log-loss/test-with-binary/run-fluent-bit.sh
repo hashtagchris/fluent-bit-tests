@@ -26,4 +26,9 @@ rm -rf fb-output
 mkdir -p fb-output
 
 # Run Fluent Bit
-time fluent-bit -c fluent-bit.yaml 2>&1 | grep -v '\[static files\] processed' | tee fluent-bit.out
+# Ensure output isn't buffered
+time fluent-bit -c fluent-bit.yaml
+
+# Or choose one of these based on fluent-bit's verbosity
+# time fluent-bit -c fluent-bit.yaml 2>&1 | tee fluent-bit.out
+# time fluent-bit -c fluent-bit.yaml 2>&1 | grep -v '\[static files\] processed' | tee fluent-bit.out
