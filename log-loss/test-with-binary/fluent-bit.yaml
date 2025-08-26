@@ -10,11 +10,17 @@ pipeline:
       read_from_head: true
       exit_on_eof: true
       parser: logfmt
+      processors:
+       logs:
+        # Calculate a checksum to ensure the test is CPU bound
+        - name: lua
+          script: checksum_processor.lua
+          call: add_checksum
 
   outputs:
     # https://docs.fluentbit.io/manual/data-pipeline/outputs/file
     - name: file
       path: fb-output
-      # reduce the output file size, and a potential IO bottleneck
+      # reduce the output file size, to avoid the test being IO bound
       format: template
       template: "{level}"
