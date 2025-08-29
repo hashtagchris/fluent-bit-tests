@@ -1,12 +1,15 @@
 service:
   log_level: info
   parsers_file: parsers.conf
+  http_server: on
+  http_listen: 0.0.0.0
+  http_port: 2020
 
 pipeline:
   inputs:
     # https://docs.fluentbit.io/manual/data-pipeline/inputs/tail
     - name: tail
-      path: logs/*.log
+      path: _var/log/containers/*.log
       buffer_chunk_size: 10MB # Reduces debug-level output, increases throughput slightly
       buffer_max_size: 10MB
       refresh_interval: 2     # seconds. This is set low so the test can detect new log files quickly

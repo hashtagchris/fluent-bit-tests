@@ -29,6 +29,22 @@ brew install <username>/fluent-bit-old/fluent-bit
 fluent-bit --version
 ```
 
+#### Build
+
+```
+gh repo clone fluent/fluent-bit
+cd fluent-bit
+
+brew install cmake pkg-config bison
+
+cd build
+cmake ..
+make
+
+export PATH=$PWD/bin:$PATH
+fluent-bit --version
+```
+
 ### Ubuntu
 
 Start by following https://docs.fluentbit.io/manual/installation/linux/ubuntu

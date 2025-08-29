@@ -1,5 +1,11 @@
 #!/bin/bash
 
+LOG_DIR=_var/log/containers
+LOG_PATH=$LOG_DIR/nginx-7c77b568c8-5xj2k_default_nginx-logger-576accb1c93d1eee32bb4a17f876be4f79927f7594f44a38bc55c376e3add7da.log
+
+# LOG_DIR=logs
+# LOG_PATH=$LOG_DIR/test.log
+
 function get_file_size() {
   stat -f%z "$1" 2>/dev/null || stat -c%s "$1" 2>/dev/null || echo 0
 }
@@ -25,17 +31,17 @@ fi
 rm -rf fb-output
 mkdir -p fb-output
 
-rm -rf logs
-mkdir -p logs
+rm -rf $LOG_DIR
+mkdir -p $LOG_DIR
 # spawn a background job to sleep 5 seconds and then copy test.log to the logs directory
 # it's possible Fluent Bit treats pre-existing files differently, even when read_from_head is true
 (
   sleep 5
-  cp test.log logs/
-  echo -e "\n***Background job***: Added log file to the logs directory for fluent bit to process\n"
+  cp test.log $LOG_PATH
+  echo -e "\n***Background job***: Added log file to the log directory for fluent bit to process\n"
 
   # spawn a second background job to delete the test log file 10 seconds later
-  ( sleep 10; rm logs/test.log; echo -e "\n***Background job***: Removed log file from the logs directory to test for abandoned log segments\n" ) &
+  ( sleep 10; rm $LOG_PATH; echo -e "\n***Background job***: Removed log file from the log directory to test for abandoned log segments\n" ) &
 ) &
 
 # Run Fluent Bit
