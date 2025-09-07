@@ -10,6 +10,8 @@ pipeline:
     # https://docs.fluentbit.io/manual/data-pipeline/inputs/tail
     - name: tail
       path: _var/log/containers/*.log
+      tag_regex: "(?<file_name>(?<pod_name>[^_]+)_(?<namespace>[^_]+)_(?<container_name>[^_]+)-(?<container_id>[a-f0-9]{64})\\.log)$"
+      tag: "kube.var.log.containers.<file_name>"
       buffer_chunk_size: 10MB # Reduces debug-level output, increases throughput slightly
       buffer_max_size: 10MB
       refresh_interval: 2     # seconds. This is set low so the test can detect new log files quickly
@@ -17,9 +19,14 @@ pipeline:
       read_from_head: true    # Start reading from the beginning of the file. Needed if the log file is present prior to starting Fluent Bit.
       threaded: true          # Enable multithreading for improved throughput
       exit_on_eof: true
-      parser: logfmt
+      parser: cri
       processors:
        logs:
+        - name: kubernetes
+          merge_log: true
+          keep_log: false
+          merge_parser: logfmt
+
         # Calculate a checksum to ensure the test is CPU bound
         # The scripts' debug output also give insight into the processing
         - name: lua
@@ -29,7 +36,7 @@ pipeline:
   outputs:
     # https://docs.fluentbit.io/manual/data-pipeline/outputs/file
     - name: file
+      match: "*"
       path: fb-output
-      # reduce the output file size, to avoid the test being IO bound
-      format: template
-      template: "{level}"
+      file: fb-output.log
+      format: out_file
