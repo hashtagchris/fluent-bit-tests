@@ -1,7 +1,13 @@
 pipeline:
   inputs:
     - name: dummy
-      dummy: '{"top": {"foo": "yes", "bar": "no", "baz": "maybe"}}'
+      dummy: '{"foo": "yes", "bar": "no", "unmapped1": "value1", "unmapped2": "value2"}'
+
+      processors:
+        logs:
+          - name: lua
+            script: ./nest-unmapped-fields.lua
+            call: nest_unmapped_fields
 
   outputs:
     - name: stdout
