@@ -1,0 +1,8 @@
+pipeline:
+  inputs:
+    - name: dummy
+      dummy: '{"top": {"foo": "yes", "bar": "no", "baz": "maybe"}}'
+
+  outputs:
+    - name: stdout
+      stdout: {}
