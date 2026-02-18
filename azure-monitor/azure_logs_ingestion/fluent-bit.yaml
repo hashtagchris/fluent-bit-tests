@@ -8,7 +8,7 @@ pipeline:
       match: '*'
       # copied from local version of webhook.site, started using docker compose up
       dce_url: http://127.0.0.1:8084/50ba9c8c-1969-4008-842c-c15c7eed250d
-      dcr_id: cafebabe-0000-0000-0000-000000000000
+      dcr_id: cafecafe-0000-0000-0000-000000000000
       table_name: table_foo
       tls: off
       # these need to be real to get a bearer token
