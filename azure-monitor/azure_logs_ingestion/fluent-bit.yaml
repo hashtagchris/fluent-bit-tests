@@ -1,3 +1,6 @@
+service:
+  flush: 5
+
 pipeline:
   inputs:
     - name: dummy
