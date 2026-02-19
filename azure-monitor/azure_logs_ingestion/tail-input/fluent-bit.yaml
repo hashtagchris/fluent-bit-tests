@@ -3,14 +3,17 @@ service:
 
 pipeline:
   inputs:
-    - name: dummy
-      dummy: '{"message": "custom dummy"}'
+    - name: tail
+      path: ./test.log
+      read_from_head: true
+      parser: json
+      exit_on_eof: true
 
   outputs:
     - name: azure_logs_ingestion
       match: '*'
       # copied from local version of webhook.site, started using docker compose up
-      dce_url: http://127.0.0.1:8084/50ba9c8c-1969-4008-842c-c15c7eed250d
+      dce_url: http://127.0.0.1:8084/9b2cb8a5-3a89-4403-99cc-0cb67b593caa
       dcr_id: cafecafe-0000-0000-0000-000000000000
       table_name: table_foo
       tls: off
@@ -21,3 +24,10 @@ pipeline:
       # testing optional timestamp fields
       time_key: TimeGenerated
       time_generated: true
+
+parsers:
+  - name: json
+    format: json
+    time_key: time
+    time_format: '%Y-%m-%dT%H:%M:%S.%LZ'
+    time_keep: off

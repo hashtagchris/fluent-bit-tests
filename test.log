@@ -1,0 +1,2 @@
+{"time": "2001-09-09T01:46:40.123456789Z", "level": "info", "msg": "hello from test.log"}
+{"time": "2017-07-14T02:40:00.987654321Z", "level": "error", "msg": "boom"}

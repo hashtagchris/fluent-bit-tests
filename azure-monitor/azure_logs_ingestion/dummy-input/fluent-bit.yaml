@@ -1,0 +1,23 @@
+service:
+  flush: 5
+
+pipeline:
+  inputs:
+    - name: dummy
+      dummy: '{"message": "custom dummy"}'
+
+  outputs:
+    - name: azure_logs_ingestion
+      match: '*'
+      # copied from local version of webhook.site, started using docker compose up
+      dce_url: http://127.0.0.1:8084/9b2cb8a5-3a89-4403-99cc-0cb67b593caa
+      dcr_id: cafecafe-0000-0000-0000-000000000000
+      table_name: table_foo
+      tls: off
+      # these need to be real to get a bearer token
+      tenant_id: 2db1014b-b2df-4add-b943-b48ecac563c6
+      client_id: 0f072706-8adb-4344-b6f6-7431a0631fbc
+      client_secret: REDACTED
+      # testing optional timestamp fields
+      time_key: TimeGenerated
+      time_generated: true

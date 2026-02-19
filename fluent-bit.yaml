@@ -1,8 +1,21 @@
 pipeline:
   inputs:
-    - name: dummy
-      dummy: '{"message": "custom dummy"}'
+    # - name: dummy
+    #   dummy: '{"message": "custom dummy"}'
+
+    - name: tail
+      path: ./test.log
+      read_from_head: true
+      parser: json
+      exit_on_eof: true
 
   outputs:
     - name: stdout
       match: '*'
+
+parsers:
+  - name: json
+    format: json
+    time_key: time
+    time_format: '%Y-%m-%dT%H:%M:%S.%LZ'
+    time_keep: off
