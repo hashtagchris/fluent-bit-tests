@@ -1,0 +1,3 @@
+2025-08-18T21:23:25.60Z stdout P level=info line=first foo=one quoted="this is a quoted value with spaces"
+2025-08-18T21:23:25.60Z stdout P line=middle bar=two splitKVPair="this gets split across a line break and
+2025-08-18T21:23:25.60Z stdout F the rest is on the last line" line=last baz=three

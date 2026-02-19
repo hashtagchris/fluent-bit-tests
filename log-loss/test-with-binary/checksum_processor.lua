@@ -9,10 +9,7 @@ function log(msg)
 end
 
 function add_checksum(tag, timestamp, record)
-    if (callCount % 50000 == 0) then
-      log("Processed " .. callCount .. " records")
-    end
-    callCount = callCount + 1
+    log("*** logtag: " .. record.logtag .. " line: " .. record.line)
 
     -- Convert the record to a deterministic string representation
     local record_string = ""
